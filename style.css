@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  background-color: rgb(252, 248, 248);
+}
+
+#start-btn {
+ background-color: rgb(136, 143, 126);
+  color: white;
+  padding: 0px;
+  font-size: 20px;
+  margin-top: 25px;
+  border-radius: 50px; 
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+
+#game-box {
+  background-image: url("./images2/bg.png");
+  background-size: cover;
+  width:600px;
+  height:400px;
+
+  position: relative; /* allows us to position inner elements (absolute) related the the game-box */
+  overflow: hidden; /* prevents elements to visually exit the game-box */
+  user-select: none; /* prevents elements inside the game-box to be highlighted. This improves the user experience for click events on the game-box */
+
+}
+
+#game-box * {
+  pointer-events: none; /* prevents elements in the game-box to be dragged. This improves the user experience for click events on the game-box  */
+}
+
+#game-screen, #game-over-screen {
+  display: none;
+}

@@ -1,0 +1,45 @@
+
+
+
+
+
+
+
+
+
+
+
+// Planning
+
+/*
+- when clicking the start button with the addEventListener 
+  - change the screens 
+  - starting the interval  
+  - start with a bird ✅
+- creating the background ✅
+- creating the bird ✅
+  - create the class (x, y, width, height, jumpSpeed, gravitySpeed) ✅
+  - automatic gravity effect ✅
+  - jump when the user triggers something (click) ✅
+- creating the tubes ✅
+  - create the class (x, y, width, height, speed) ✅
+  - tubes will move automatically ✅
+
+- collision between the bird and the tubes ✅
+- spawn tubes as the game progresses ✅
+  - random y ✅
+  - two at a time with differente images and y ✅
+- despawn the tubes once they exit the screen ✅
+
+
+BONUS
+- Score
+- changing the speed
+- random trigger
+- flap animations
+- rotation when jumping or moving down
+*/
+
+
+
+
