@@ -4,37 +4,43 @@ body {
 }
 
 #start-btn {
- background-color: rgb(136, 143, 126);
+  background-color: rgb(136, 143, 126);
   color: white;
-  padding: 0px;
+  padding: 30px;
   font-size: 20px;
   margin-top: 25px;
-  border-radius: 50px; 
+  border-radius: 50px;
+  cursor: pointer; 
 }
-
 
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 50px;
+  margin: 20px; 
+}
+
+ 
+#hud {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
 }
 
 #game-box {
-  background-image: url("./images2/bg.png");
+  background-image: url("./images/bg.png");  
   background-size: cover;
-  width:600px;
-  height:400px;
-
-  position: relative; /* allows us to position inner elements (absolute) related the the game-box */
-  overflow: hidden; /* prevents elements to visually exit the game-box */
-  user-select: none; /* prevents elements inside the game-box to be highlighted. This improves the user experience for click events on the game-box */
-
+  width: 600px;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
 }
 
 #game-box * {
-  pointer-events: none; /* prevents elements in the game-box to be dragged. This improves the user experience for click events on the game-box  */
+  pointer-events: none;
 }
 
 #game-screen, #game-over-screen {
