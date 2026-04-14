@@ -44,6 +44,9 @@ function gameStart() {
   // initialize the other intervals of the game
   tubeSpawnIntervalId = setInterval(spawnElement, 2000)
 
+    update() {
+    this.y += this.speed;       // chute : on incrémente Y à chaque frame
+  }
 }
 
 function gameLoop() {
@@ -90,14 +93,23 @@ function birdTubeCollitionCheck() {
 
 }
 
-function collisionCheck(elem1, elem2) {
-  return (
-    elem1.x < elem2.x + elem2.width &&
-    elem1.x + elem1.width > elem2.x &&
-    elem1.y < elem2.y + elem2.height &&
-    elem1.y + elem1.height > elem2.y
-  );
+function collisionCheck(player) {
+  return 
+   //Distance  entre les centres
+    const dx = this.x - (player.x + player.w / 2);
+    const dy = this.y - (player.y + player.h / 2);
+    return Math.sqrt(dx*dx + dy*dy) < this.radius + 20; // collision circulaire
+  }
 }
+
+//fonction update
+  update() {
+    this.y += this.speed;       // chute : on incrémente Y à chaque frame
+  }
+
+  isOutOfBounds(canvasHeight) {
+    return this.y - this.radius > canvasHeight; // sorti par le bas ?
+  }
 
 function gameOver() {
 

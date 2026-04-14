@@ -1,47 +1,21 @@
-const ElementsImages = [
-  "./images/car.png",
-  "./images/cycling.png",
-  "./images/phone.png",
-  "./images/house.png"
+const element = [
+  { img: loadImg("./car.png"),     name: "Voiture",    value: -500 },
+  { img: loadImg("./house.png"),   name: "Maison",     value: -800 },
+  { img: loadImg("./cycling.png"), name: "Vélo",       value: +200 },
+  { img: loadImg("./phone.png"),   name: "Téléphone",  value: -150 },
 ];
-
-
-
-class FallingItem {
-
-  constructor() {
-
-    // position aléatoire en haut de l’écran
-    this.x = Math.random() * window.innerWidth;
-    this.y = -50;
-
-    // profondeur simple 
-    this.depth = Math.random() * 1 + 0.5;
-
-    // plus c’est loin → plus petit + plus lent
-    this.size = 40 * this.depth;
-    this.speed = 1.5 * this.depth;
-
-    // image aléatoire
-    this.img = document.createElement("img");
-    this.img.src = itemsPool[Math.floor(Math.random() * itemsPool.length)];
-
-    // DOM
-    this.img.style.position = "absolute";
-    this.img.style.width = `${this.size}px`;
-    this.img.style.height = `${this.size}px`;
-
-    gameBoxNode.append(this.img);
+class ChuteElement {
+  constructor(canvasWidth) {
+    // Tirage aléatoire dans le tableau
+    const type = element[Math.floor(Math.random() * element.length)];
+    
+    this.label  = type.label;
+    this.value  = type.value;   // positif = économie, négatif = dépense
+    this.x      = Math.random() * (canvasWidth - 40) + 20; // position X aléatoire
+    this.y      = -20;          // démarre hors écran en haut
+    this.speed  = 1.5 + Math.random() * 2; // vitesse variable
+    this.radius = 22;
   }
 
-  update() {
-
-    // chute
-    this.y += this.speed;
-
-    // mise à jour DOM
-    this.img.style.top = `${this.y}px`;
-    this.img.style.left = `${this.x}px`;
-  }
-
+  
 }
