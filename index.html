@@ -9,35 +9,41 @@
 </head>
 <body>
 
-    <!-- START SCREEN -->
-    <div id="start-screen" class="container">
-            <h1>€XP€NSE HUNTER</h1>
-      <img src="./images/bg.png" width="100%" alt="logo">
-
-      <button id="start-btn">Start!</button>
-    </div>
+  <div id="start-screen" class="container">
+    <h1>€XP€NSE HUNTER</h1>
+    <img src="./images/bg.png" width="100%" alt="logo">
+    <button id="start-btn">Start!</button>
+  </div>
     
-    <!-- GAME SCREEN -->
-    <div id="game-screen" class="container">
-      <!-- Game elements like score, lifes and other ui elements should be here (inside the game-screen but outside the game-box) -->
-
-      <div id="game-box">
-        <!-- Game elements will be added here vsa javascript and DOM manipulation -->
-      </div>
-
+  <div id="game-screen" class="container">
+        <div id="score-container">
+    <div>Score: <span id="score-val">0</span>€</div>
+    <div class="game-controls">
+        <button id="pause-btn">Pause</button>
+        <button id="restart-btn">Restart</button>
     </div>
-    <div id="game-screen" class="container">
-  <div id="score-container">Score: <span id="score-val">0</span>€</div> <div id="game-box"></div>
 </div>
-    
-    <!-- GAME OVER SCREEN -->
-    <div id="game-over-screen" class="container">
-      <img src="./images/gameover.png" width="500" alt="logo">
-    </div>
 
-  <script src="./js/main.js"></script>
+
+
+
+
+
+
+
+
+
+    <div id="game-box">
+      </div>
+  </div>
+    
+  <div id="game-over-screen" class="container">
+    <img src="./images/gameover.png" width="500" alt="logo">
+  </div>
+
   <script src="./js/man.js"></script>
   <script src="./js/elements.js"></script>
+  <script src="./js/main.js"></script>
 
 </body>
 </html>

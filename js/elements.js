@@ -24,8 +24,8 @@ class ChuteElement {
     this.node = document.createElement("img");
     this.node.src = this.img.src;
     this.node.style.position = "absolute";
-    this.node.style.width = "20px";
-    this.node.style.height = "20px";
+    this.node.style.width = "30px";
+    this.node.style.height = "30px";
 
     // 3. POSITIONNEMENT INITIAL
     // On calcule un X aléatoire pour qu'il n'apparaisse pas toujours au même endroit

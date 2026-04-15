@@ -1,17 +1,7 @@
 body {
   margin: 0;
   background-color: rgb(252, 248, 248);
- 
-}
-
-#start-btn {
-  background-color: rgb(136, 143, 126);
-  color: white;
-  padding: 30px;
-  font-size: 20px;
-  margin-top: 25px;
-  border-radius: 50px;
-  cursor: pointer; 
+  font-family: Arial, sans-serif;
 }
 
 .container {
@@ -22,41 +12,63 @@ body {
   margin: 20px; 
 }
 
-/* LE COMPTEUR (Score) */
+#start-btn {
+  background-color: rgb(136, 143, 126);
+  color: white;
+  padding: 20px 40px;
+  font-size: 20px;
+  margin-top: 25px;
+  border-radius: 50px;
+  cursor: pointer; 
+  border: none;
+}
+
+#game-screen {
+  display: none;
+  position: relative; /* Indispensable pour le score-container */
+}
+
 #score-container {
   position: absolute;
-  bottom: 20px;
-  right: 40px;
+  bottom: 10px;    /* Placé en haut à droite du jeu */
+  right: 450px;
+  z-index: 1000;
   font-size: 24px;
   font-weight: bold;
-  color: #333;
-  background-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 2px solid rgb(136, 143, 126);
-  z-index: 100; 
 }
- 
-#hud {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
+.game-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.game-controls button {
+    cursor: pointer;
+    background: rgb(136, 143, 126);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.game-controls button:hover {
+    background: rgb(106, 113, 96);
 }
 
 #game-box {
   background-image: url("./images/bg.png");  
   background-size: cover;
-  width: 100%;
-  height: 400px;
+  width: 50vw;
   max-width: 800px;
+  height: 600px;
   position: relative;
   overflow: hidden;
-  user-select: none;
-}
 
-#game-box * {
-  pointer-events: none;
 }
 
 #game-screen, #game-over-screen {
