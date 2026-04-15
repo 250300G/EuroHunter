@@ -45,6 +45,7 @@ function gameLoop() {
 function spawnElement() {
    /*  passe la largeur réelle */
   const newElement = new ChuteElement(gameBoxNode.offsetWidth)
+  
   /*  ajoute l'image au DOM */
   gameBoxNode.append(newElement.node)                          
   fallingElements.push(newElement)
@@ -60,4 +61,43 @@ function gameOver() {
 //* EVENT LISTENERS
 startBtnNode.addEventListener("click", gameStart)
 
+ //
  
+// Planning
+
+/*
+  beginning page 
+
+- when clicking the start button with the addEventListener 
+                 - change the screens 
+  - starting the interval  
+  - start with a man 
+
+
+- creating the background  ✅
+- creating the man  ✅
+  - create the class (x, y, width, height, gravitySpeed for elements) 
+  - automatic gravity effect 
+  - avoids when the user triggers something (click)
+  
+  
+- creating the elements 
+  - create the class (x, y, width, height, speed) 
+  - elements will move automatically fall
+
+
+- collision between the man and the elements 
+
+- spawn elements as the game progresses 
+  - random y 
+  - two at a time with differente images and y 
+- despawn the tubes once they exit the screen 
+
+
+BONUS
+- Score
+- changing the speed
+- random trigger
+- flap animations
+- rotation when jumping or moving down
+*/
