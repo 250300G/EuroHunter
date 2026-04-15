@@ -23,15 +23,24 @@ body {
   border: none;
 }
 
+
+.game-controls {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+
 #game-screen {
   display: none;
-  position: relative; /* Indispensable pour le score-container */
+  position: relative; 
 }
 
 #score-container {
   position: absolute;
+
+  align-content: flex-end;
   bottom: 10px;    /* Placé en haut à droite du jeu */
-  right: 450px;
+  right: 150px;
   z-index: 1000;
   font-size: 24px;
   font-weight: bold;
@@ -40,20 +49,17 @@ body {
   border-radius: 8px;
   border: 2px solid rgb(136, 143, 126);
 }
-.game-controls {
-    display: flex;
-    gap: 10px;
-    margin-top: 5px;
-}
 
 .game-controls button {
     cursor: pointer;
     background: rgb(136, 143, 126);
     color: white;
     border: none;
-    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    padding: 0px 0px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .game-controls button:hover {
@@ -63,9 +69,9 @@ body {
 #game-box {
   background-image: url("./images/bg.png");  
   background-size: cover;
-  width: 50vw;
-  max-width: 800px;
-  height: 600px;
+  width: 100%;
+  max-width: 2060px;
+  height: 800px;
   position: relative;
   overflow: hidden;
 
