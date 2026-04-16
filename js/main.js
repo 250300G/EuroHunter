@@ -99,7 +99,7 @@ function gameLoop() {
   }
 }
 
-// ✅ UNE SEULE togglePause avec gestion audio
+// UNE SEULE togglePause avec gestion audio
 function togglePause() {
   isPaused = !isPaused;
   pauseBtnNode.innerText = isPaused ? "Resume" : "Pause";
@@ -132,6 +132,21 @@ function gameOver() {
   bgMusic.pause();
   gameScreenNode.style.display = "none"
   gameOverScreenNode.style.display = "flex"
+  clearInterval(timerIntervalId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 }
 
 function checkCollision(obj1, obj2) {
