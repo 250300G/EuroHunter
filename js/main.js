@@ -12,8 +12,6 @@ const CONFIG = {
 
 
 
-
-
 //* GLOBAL DOM ELEMENTS
 const startScreenNode = document.querySelector("#start-screen")
 const gameScreenNode = document.querySelector("#game-screen")
