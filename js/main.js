@@ -8,6 +8,26 @@ const scoreValueNode = document.querySelector("#score-val")
 const pauseBtnNode = document.querySelector("#pause-btn")
 const restartBtnNode = document.querySelector("#restart-btn")
 
+const muteBtnNode = document.querySelector("#mute-btn");
+const bgMusic = document.querySelector("#bg-music");
+const impactSound = document.querySelector("#impact-sound");
+
+let isMuted = false;
+
+function toggleMute() {
+    isMuted = !isMuted;
+    bgMusic.muted = isMuted;
+    impactSound.muted = isMuted;
+    muteBtnNode.innerText = isMuted ? "🔈" : "🔊";
+}
+
+if (muteBtnNode) {
+    muteBtnNode.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMute();
+    });
+}
+
 //* GLOBAL GAME VARIABLES
 let manObj = null
 let gameIntervalId = null
@@ -16,21 +36,18 @@ let fallingElements = []
 let score = 0
 let keysPressed = {} 
 
-let isPaused = false // État de pause
-let lastActivityTime = Date.now() // Pour la sécurité d'inactivité
+let isPaused = false
+let lastActivityTime = Date.now()
 
 //* FONCTIONS PRINCIPALES
 
 function gameStart() {
   startScreenNode.style.display = "none"
   gameScreenNode.style.display = "flex"
-  
   resetGame();
-
   gameIntervalId = setInterval(gameLoop, 16) 
   elementSpawnIntervalId = setInterval(spawnElement, 800) 
-  
-  // Lancer la surveillance d'inactivité
+  bgMusic.play().catch(() => {});
   lastActivityTime = Date.now()
 }
 
@@ -45,25 +62,19 @@ function resetGame() {
 }
 
 function gameLoop() {
-  // 1. Sécurité Inactivité (2 minutes = 120 000 ms)
   if (Date.now() - lastActivityTime > 120000) {
     gameOver();
     return;
   }
-
-  // 2. Si pause, on arrête les calculs
   if (isPaused) return;
-
   if (manObj) {
     manObj.move(keysPressed)
   }
-
   for (let i = fallingElements.length - 1; i >= 0; i--) {
     const el = fallingElements[i]
     el.update()
     el.node.style.top = `${el.y}px`
     el.node.style.left = `${el.x}px`
-
     if (manObj && checkCollision(manObj, el)) {
       handleImpact(el, i)
     } 
@@ -74,16 +85,16 @@ function gameLoop() {
   }
 }
 
-// Gérer la Pause
+// ✅ UNE SEULE togglePause avec gestion audio
 function togglePause() {
   isPaused = !isPaused;
   pauseBtnNode.innerText = isPaused ? "Resume" : "Pause";
-  
-  // On bloque aussi l'apparition de nouveaux éléments en pause
   if (isPaused) {
     clearInterval(elementSpawnIntervalId);
+    bgMusic.pause();
   } else {
     elementSpawnIntervalId = setInterval(spawnElement, 800);
+    bgMusic.play();
   }
 }
 
@@ -95,7 +106,7 @@ function handleImpact(el, index) {
 }
 
 function spawnElement() {
-  if (isPaused) return; // Sécurité supplémentaire
+  if (isPaused) return;
   const newElement = new ChuteElement(gameBoxNode.offsetWidth)
   gameBoxNode.append(newElement.node)                                  
   fallingElements.push(newElement)
@@ -104,6 +115,7 @@ function spawnElement() {
 function gameOver() {
   clearInterval(gameIntervalId)
   clearInterval(elementSpawnIntervalId) 
+  bgMusic.pause();
   gameScreenNode.style.display = "none"
   gameOverScreenNode.style.display = "flex"
 }
@@ -114,7 +126,6 @@ function checkCollision(obj1, obj2) {
 
 //* EVENT LISTENERS
 startBtnNode.addEventListener("click", gameStart)
-
 pauseBtnNode.addEventListener("click", togglePause)
 
 restartBtnNode.addEventListener("click", () => {
@@ -125,7 +136,7 @@ restartBtnNode.addEventListener("click", () => {
 
 window.addEventListener("keydown", (e) => {
   keysPressed[e.code] = true
-  lastActivityTime = Date.now() // Reset le chrono d'inactivité à chaque touche
+  lastActivityTime = Date.now()
 })
 
 window.addEventListener("keyup", (e) => {
