@@ -92,12 +92,21 @@ body {
     padding: 6px 10px;
 }
 
-#mute-btn {
-    font-size: 20px;
+#mute-btn  {
+    font-size: 40px;
     background: transparent;
     color: white;
     border: none;
     cursor: pointer;
     display: block;
+    line-height: 1;
+}
+#mute-container  {
+    font-size: 20px;
+    background: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
     line-height: 1;
 }

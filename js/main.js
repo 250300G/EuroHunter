@@ -1,3 +1,19 @@
+
+const CONFIG = {
+  gameLoopInterval: 16,       // ms entre chaque frame
+  spawnInterval: 800,         // ms entre chaque élément
+  inactivityLimit: 120000,    // ms avant game over par inactivité
+  speedIncreaseInterval: 5000, // ms entre chaque accélération
+  speedMultiplier: 1.2        // facteur d'accélération
+}
+
+
+
+
+
+
+
+
 //* GLOBAL DOM ELEMENTS
 const startScreenNode = document.querySelector("#start-screen")
 const gameScreenNode = document.querySelector("#game-screen")
