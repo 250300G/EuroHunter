@@ -10,19 +10,30 @@ const CONFIG = {
   intervalReduction: 200  
 };
 
-//* DOM ELEMENTS
+//* GLOBAL DOM ELEMENTS
 const startScreenNode = document.querySelector("#start-screen");
 const gameScreenNode = document.querySelector("#game-screen");
 const gameOverScreenNode = document.querySelector("#game-over-screen");
-const startBtnNode = document.querySelector("#start-btn");
+
+
 const gameBoxNode = document.querySelector("#game-box");
 const scoreValueNode = document.querySelector("#score-val");
 const timerValueNode = document.querySelector("#timer-val");
 const finalScoreNode = document.querySelector("#final-score-val");
+
+const startBtnNode = document.querySelector("#start-btn");
 const pauseBtnNode = document.querySelector("#pause-btn");
 const restartBtnNode = document.querySelector("#restart-btn");
 const muteBtnNode = document.querySelector("#mute-btn");
+
 const bgMusic = document.querySelector("#bg-music");
+
+// --- REGLAGE AUDIO DEMONSTRATION ---
+bgMusic.volume = 0.05; 
+ 
+
+
+
 
 let score = 0;
 let timeLeft = CONFIG.gameDuration;
@@ -31,7 +42,8 @@ let isPaused = false;
 let manObj = null;
 let fallingElements = [];
 let keysPressed = {};
-let lastActivityTime = Date.now(); // 
+let lastActivityTime = Date.now(); 
+
 
 //* INITIALISATION
 function gameStart() {
@@ -39,6 +51,7 @@ function gameStart() {
     gameScreenNode.style.display = "flex";
     gameOverScreenNode.style.display = "none";
     
+
     // Reset variables
     score = 0;
     timeLeft = CONFIG.gameDuration;
@@ -66,7 +79,6 @@ function startTimer() {
             timeLeft--;
             timerValueNode.innerText = timeLeft;
 
-            // --- ACCELERATION EVERY 60 SECONDS ---
             if (timeLeft === 120 || timeLeft === 60) {
                 increaseDifficulty();
             }
@@ -81,7 +93,6 @@ function increaseDifficulty() {
     let currentInterval = isMobile ? 1200 : 800;
     let newInterval = timeLeft === 120 ? currentInterval - 200 : currentInterval - 400;
     spawnIntervalId = setInterval(spawnElement, newInterval);
-    console.log("Difficulty increased!");
 }
 
 function spawnElement() {
@@ -94,12 +105,10 @@ function spawnElement() {
 function gameLoop() {
     if (isPaused) return;
 
-    // 1. Player movement
     if (manObj) {
         manObj.move(keysPressed);
     }
 
-    // 2. Falling elements movement
     for (let i = fallingElements.length - 1; i >= 0; i--) {
         const el = fallingElements[i];
         el.update();
@@ -107,11 +116,9 @@ function gameLoop() {
         el.node.style.top  = `${el.y}px`;
         el.node.style.left = `${el.x}px`;
 
-        // 3. Collision detection
         if (manObj && checkCollision(manObj, el)) {
             handleImpact(el, i);
         } 
-        // 4. Remove if out of screen
         else if (el.y > gameBoxNode.offsetHeight) {
             el.node.remove();
             fallingElements.splice(i, 1);
@@ -163,7 +170,6 @@ function gameOver() {
     gameOverScreenNode.style.display = "flex";
 }
 
-//* TOUCH & KEYBOARD
 gameBoxNode.addEventListener("touchmove", (e) => {
     if (isPaused || !manObj) return;
     e.preventDefault();
@@ -186,7 +192,6 @@ gameBoxNode.addEventListener("touchmove", (e) => {
 window.addEventListener("keydown", (e) => { keysPressed[e.code] = true; });
 window.addEventListener("keyup",   (e) => { keysPressed[e.code] = false; });
 
-//* EVENT LISTENERS
 startBtnNode.addEventListener("click", gameStart);
 pauseBtnNode.addEventListener("click", togglePause);
 restartBtnNode.addEventListener("click", () => {

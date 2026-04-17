@@ -1,0 +1,121 @@
+EUROHUNTER - SIMPLE TECHNICAL PRESENTATION
+
+The game engine is built to use all lessons covered in the first module of the course Web Development
+It is intended as a financial education game, in a context of inflation. The question is how to help family members either increase their income or, if they cannot, manage their expenses.
+
+ 
+ 
+
+🎮 How to Play
+
+a man must either capture the sources of savings & everything that brings a plus: 
+- choose the bike 
+- prepare his meal, 
+- finds a new job
+- walk in the forest
+
+
+Avoid, postpone expenses or anything that leads to spending
+- air travel
+- purchase house 
+- meals at the restaurant, etc.
+
+
+1.  WHAT IS EUROHUNTER?
+- HTML (structure) - CSS
+(design) - JavaScript (game logic)
+
+
+2.  HOW THE GAME IS ORGANIZED
+
+The game has 3 main screens:
+
+    1.  Start Screen
+
+        -   Shows the title and rules
+        -   Player clicks “Start”
+
+    2.  Game Screen
+
+        -   Displays the game
+        -   Shows score and timer
+        -   Player moves and plays
+
+    3.  Game Over Screen
+
+    -   Shows final score
+    -   Player can restart
+
+3.  MAIN GAME LOGIC
+
+The game runs using a loop.
+
+The loop repeats many times per second.
+
+Each loop does:
+
+1.  Read player input (keyboard or touch)
+2.  Move the player
+3.  Move objects (money / expenses)
+4.  Check collisions
+5.  Update score
+6.  Update screen
+
+4.  PLAYER
+
+The player: - Can move left and right - Uses keyboard or touch
+
+Example: Arrow keys → move Touch → move finger
+
+
+5.  OBJECTS
+
+There are two types of objects:
+
+Positive: + Money → increases score
+
+Negative: - Expenses → decreases score
+
+Each object has: - Position (x, y) - Speed - Value
+
+6.  COLLISIONS
+
+The game checks if the player touches an object.
+
+If collision: - Add or remove score 
+
+
+7.  SCORE SYSTEM
+
+Score starts at 0.
+
+When player catches: + good item → score increases + bad item → score
+decreases
+
+Score is updated live on screen.
+
+8.  TIMER
+
+Game duration = 180 seconds.
+
+Timer decreases every second.
+
+When timer = 0: → Game Over
+
+
+9.  SOUND
+
+The game includes: - Background music - Sound effect on collision
+
+10. SIMPLE ARCHITECTURE SUMMARY
+
+The game is built with:
+
+-   index.html → structure
+-   main.js → game logic
+-   elements.js → objects
+-   man.js → player
+
+Everything is connected with JavaScript.
+
+  
