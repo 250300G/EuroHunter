@@ -1,90 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=none">
   <title>EurosHunter</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-  <!-- ==================== ÉCRAN DÉMARRAGE ==================== -->
   <div id="start-screen" class="container">
-    <h1>€XP€NSE HUNTER</h1>
-    <img src="./images/bg.png" width="100%" alt="logo">
-    <!-- Le bouton est AVANT le welcome-message dans le flux,
-         il ne peut donc plus être recouvert par lui -->
-    <button id="start-btn">Start!</button>
+    <div class="overlay-bg"></div> <h1>€XP€NSE HUNTER</h1>
+    
     <div id="welcome-message">
-      <p>Welcome €Hunter!<br>
-        How much will you save within 3 minutes?</p>
-      <aside id="rules">
-        <h3>Rules</h3>
-        <ul> - Target: Catches income and savings</ul>
-        <ul> - Danger: Avoid debt and unnecessary expenses</ul>
-        <ul> - Goal: Hold for 3 minutes with the highest score!</ul>
-        <ul>🕹️ Controls: Arrow keys to move.</ul>
-      </aside>
-    </div>
-  </div>
-
-  <!-- ==================== ÉCRAN DE JEU ==================== -->
-  <div id="game-screen" class="container">
-
-    <!-- HUD bas : score + boutons -->
-    <div id="score-container">
-      <div>Score: <span id="score-val">0</span>€</div>
-      <div class="game-controls">
-        <button id="pause-btn">Pause</button>
-        <button id="restart-btn">Restart</button>
+      <p>Welcome €Hunter !<br>How much can you save within 3 minutes ? ?</p>
+      <div id="rules">
+        <h3>Rules :</h3>
+        <ul>
+          <li> Catch (+)  : Incomes & Savings</li>
+          <li> Evoid (-)  : Debts & Expenses</li>
+          <li>🕹️ move your finger on  Mobile Or keyboearrd arrows on PC : </li>
+        </ul>
       </div>
     </div>
+    
+    <button id="start-btn">COMMENCER !</button>
+  </div>
 
-    <!-- Audio -->
-    <audio id="bg-music"     src="./audio/walking_alone_in_winter.mp3" loop></audio>
-    <audio id="impact-sound" src="./audio/walking_alone_in_winter.mp3"></audio>
+  <div id="game-screen" class="container">
+    
+    <div id="hud-top">
+        <div id="score-box">Score: <span id="score-val">0</span>€</div>
+        <div id="timer-box">⏱ <span id="timer-val">180</span>s</div>
+        <div id="mute-container">
+            <button id="mute-btn">🔊</button>
+        </div>
+    </div>
 
-    <!-- Zone de jeu -->
     <div id="game-box"></div>
 
-    <!-- HUD haut droite : timer + mute
-         CORRECTION : id="timer-val" pour correspondre au JS (qui cherche #timer-val) -->
-    <div id="hud-top-right">
-      <div id="countdown-container">⏱ <span id="timer-val">180</span>s</div>
-      <div id="mute-container">
-        <button id="mute-btn">🔊</button>
-      </div>
+    <div id="hud-bottom">
+        <div class="game-controls">
+            <button id="pause-btn">Pause</button>
+            <button id="restart-btn">Restart</button>
+        </div>
     </div>
 
-    <!-- Contrôles tactiles (visibles sur mobile via CSS) -->
-    <div id="touch-controls">
-      <div class="touch-row">
-        <button id="btn-up">▲</button>
-      </div>
-      <div class="touch-row">
-        <button id="btn-left">◀</button>
-        <button id="btn-down">▼</button>
-        <button id="btn-right">▶</button>
-      </div>
-    </div>
-
+    <audio id="bg-music" src="./audio/Boléro_de_Ravel.mp3" loop></audio>
+    <audio id="impact-sound" src="./audio/impact.mp3"></audio>
   </div>
 
-  <!-- ==================== ÉCRAN GAME OVER ==================== -->
   <div id="game-over-screen" class="container">
     <h1>GAME OVER</h1>
-    <div id="final-score-display">
-      Votre score final : <span id="final-score-val">0</span>€
-    </div>
-    <img src="./images/bg.png" width="100%" alt="logo">
-    <button id="restart-btn-over" class="big-btn">REJOUER</button>
+    <div id="final-score-display"> final Score  : <span id="final-score-val">0</span>€</div>
+    <button id="restart-btn-over" class="big-btn">PLAY AGAIN</button>
   </div>
 
   <script src="./js/man.js"></script>
   <script src="./js/elements.js"></script>
   <script src="./js/main.js"></script>
-  <!-- Contrôles tactiles : branché APRÈS main.js pour avoir accès à keysPressed -->
-  <script src="./js/touch.js"></script>
 </body>
 </html>
