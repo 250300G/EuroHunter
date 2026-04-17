@@ -143,6 +143,7 @@ function handleImpact(el, index) {
     setTimeout(() => { scoreValueNode.style.color = "black"; }, 300);
 
     el.node.remove();
+    
     fallingElements.splice(index, 1);
 
     if (el.value < 0 && window.navigator.vibrate) {
