@@ -1,6 +1,6 @@
 class Man {
   constructor() {
-    // 1. CRÉATION DU NŒUD
+    
     this.node = document.createElement("img");
     this.node.src = "./images/man.png";
 
@@ -16,9 +16,9 @@ class Man {
     this.height = 35;
     this.speed  = 5;
 
-    // CORRECTION RESPONSIVE :
+    //  RESPONSIVE :
     // Position de départ calculée en % du gameBox réel,
-    // plutôt qu'en pixels fixes (300 / 350 étaient hors-écran sur mobile).
+   
     this.x = gameBoxNode.offsetWidth  * 0.45; // ~45% de la largeur
     this.y = gameBoxNode.offsetHeight * 0.45; // ~45% de la hauteur
 

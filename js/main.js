@@ -4,8 +4,10 @@ const CONFIG = {
   spawnInterval: isMobile ? 1200 : 800, 
   gameDuration: 180, 
   musicSpeed: isMobile ? 0.9 : 1.0,
-  moveSpeed: isMobile ? 8 : 6, // Vitesse de déplacement du personnage
-  fps: 16 // ~60 images par seconde
+  moveSpeed: isMobile ? 8 : 6,
+  fps: 16,
+  speedIncrement: 1.5,  
+  intervalReduction: 200  
 };
 
 //* DOM ELEMENTS
@@ -27,8 +29,9 @@ let timeLeft = CONFIG.gameDuration;
 let gameIntervalId, spawnIntervalId, timerIntervalId;
 let isPaused = false;
 let manObj = null;
-let fallingElements = []; // Liste pour stocker les objets qui tombent
-let keysPressed = {}; // Pour la gestion du clavier
+let fallingElements = [];
+let keysPressed = {};
+let lastActivityTime = Date.now(); // 
 
 //* INITIALISATION
 function gameStart() {
@@ -40,6 +43,8 @@ function gameStart() {
     score = 0;
     timeLeft = CONFIG.gameDuration;
     fallingElements = [];
+    isPaused = false; 
+    pauseBtnNode.innerText = "Pause";
     gameBoxNode.innerHTML = "";
     scoreValueNode.innerText = score;
     timerValueNode.innerText = timeLeft;
@@ -60,9 +65,23 @@ function startTimer() {
         if (!isPaused) {
             timeLeft--;
             timerValueNode.innerText = timeLeft;
+
+            // --- ACCELERATION EVERY 60 SECONDS ---
+            if (timeLeft === 120 || timeLeft === 60) {
+                increaseDifficulty();
+            }
+
             if (timeLeft <= 0) gameOver();
         }
     }, 1000);
+}
+
+function increaseDifficulty() {
+    clearInterval(spawnIntervalId);
+    let currentInterval = isMobile ? 1200 : 800;
+    let newInterval = timeLeft === 120 ? currentInterval - 200 : currentInterval - 400;
+    spawnIntervalId = setInterval(spawnElement, newInterval);
+    console.log("Difficulty increased!");
 }
 
 function spawnElement() {
@@ -75,25 +94,24 @@ function spawnElement() {
 function gameLoop() {
     if (isPaused) return;
 
-    // 1. Mouvement du personnage
+    // 1. Player movement
     if (manObj) {
         manObj.move(keysPressed);
     }
 
-    // 2. Mouvement des éléments qui tombent
+    // 2. Falling elements movement
     for (let i = fallingElements.length - 1; i >= 0; i--) {
         const el = fallingElements[i];
-        el.update(); // Met à jour sa coordonnée Y interne
+        el.update();
         
-        // Appliquer la position au DOM
-        el.node.style.top = `${el.y}px`;
+        el.node.style.top  = `${el.y}px`;
         el.node.style.left = `${el.x}px`;
 
-        // 3. Détection de collision
+        // 3. Collision detection
         if (manObj && checkCollision(manObj, el)) {
             handleImpact(el, i);
         } 
-        // 4. Suppression si l'élément sort de l'écran
+        // 4. Remove if out of screen
         else if (el.y > gameBoxNode.offsetHeight) {
             el.node.remove();
             fallingElements.splice(i, 1);
@@ -114,17 +132,20 @@ function handleImpact(el, index) {
     score += el.value;
     scoreValueNode.innerText = score;
     
-    // Animation visuelle rapide sur le score
-    scoreValueNode.style.color = el.value > 0 ? "#2ecc71" : "#e74c3c";
+    scoreValueNode.style.color = el.value > 0 ? "#bcd6c7" : "#e74c3c";
     setTimeout(() => { scoreValueNode.style.color = "black"; }, 300);
 
     el.node.remove();
     fallingElements.splice(index, 1);
+
+    if (el.value < 0 && window.navigator.vibrate) {
+        window.navigator.vibrate(100); 
+    }
 }
 
 function togglePause() {
     isPaused = !isPaused;
-    pauseBtnNode.innerText = isPaused ? "Reprendre" : "Pause";
+    pauseBtnNode.innerText = isPaused ? "Resume" : "Pause";
     if (isPaused) {
         bgMusic.pause();
     } else {
@@ -142,7 +163,7 @@ function gameOver() {
     gameOverScreenNode.style.display = "flex";
 }
 
-//* TACTILE ET CLAVIER
+//* TOUCH & KEYBOARD
 gameBoxNode.addEventListener("touchmove", (e) => {
     if (isPaused || !manObj) return;
     e.preventDefault();
@@ -154,17 +175,16 @@ gameBoxNode.addEventListener("touchmove", (e) => {
     manObj.x = touchX - (manObj.width / 2);
     manObj.y = touchY - (manObj.height / 2);
     
-    // Limites de la zone
     if (manObj.x < 0) manObj.x = 0;
     if (manObj.y < 0) manObj.y = 0;
-    if (manObj.x > gameBoxNode.offsetWidth - manObj.width) manObj.x = gameBoxNode.offsetWidth - manObj.width;
+    if (manObj.x > gameBoxNode.offsetWidth  - manObj.width)  manObj.x = gameBoxNode.offsetWidth  - manObj.width;
     if (manObj.y > gameBoxNode.offsetHeight - manObj.height) manObj.y = gameBoxNode.offsetHeight - manObj.height;
     
     manObj.updatePosition();
 }, { passive: false });
 
 window.addEventListener("keydown", (e) => { keysPressed[e.code] = true; });
-window.addEventListener("keyup", (e) => { keysPressed[e.code] = false; });
+window.addEventListener("keyup",   (e) => { keysPressed[e.code] = false; });
 
 //* EVENT LISTENERS
 startBtnNode.addEventListener("click", gameStart);
@@ -173,6 +193,7 @@ restartBtnNode.addEventListener("click", () => {
     clearInterval(gameIntervalId);
     clearInterval(spawnIntervalId);
     clearInterval(timerIntervalId);
+    bgMusic.pause();
     gameStart();
 });
 muteBtnNode.addEventListener("click", () => {
